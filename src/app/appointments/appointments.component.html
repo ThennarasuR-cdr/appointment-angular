@@ -11,6 +11,10 @@
     <button type="submit">Add</button>
 </form>
 <h3>Your Appoinments</h3>
+<span>Filter by</span>
+<input type="date" [(ngModel)]="filterDate" name="date"/>
+<button (click)="onApplyFilter()">Apply Filter</button>
+<button (click)="onClearFilter()">Clear Filter</button>
 <table>
     <thead>
         <tr>

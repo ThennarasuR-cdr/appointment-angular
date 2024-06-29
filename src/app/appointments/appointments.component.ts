@@ -19,7 +19,8 @@ export class AppointmentsComponent {
   appointments:any[]=[];
   modalOpen:boolean=false;
   editAppointment:any=null;
-  statusOptions=['Scheduled', 'Completed', 'Cancelled']
+  statusOptions=['Scheduled', 'Completed', 'Cancelled'];
+  filterDate:string='';
 
   constructor(private http: HttpClient, private cookieService: CookieService){}
 
@@ -28,7 +29,7 @@ export class AppointmentsComponent {
   }
 
   fetchData() {
-    this.http.get('http://localhost:3000/appointments',{
+    this.http.get('http://localhost:3000/appointments?filterDate='+this.filterDate,{
       headers: new HttpHeaders({'Authorization': 'Bearer '+ this.cookieService.get('token')}),
     })
     .subscribe((response) => {
@@ -84,6 +85,15 @@ export class AppointmentsComponent {
     });
   }
 
+  onApplyFilter(){
+    this.fetchData();
+  }
+
+  onClearFilter(){
+    this.filterDate='';
+    this.fetchData();
+  }
+
   formatDate(date:string) {
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),
@@ -96,5 +106,5 @@ export class AppointmentsComponent {
         day = '0' + day;
 
     return [year, month, day].join('-');
-}
+  }
 }
