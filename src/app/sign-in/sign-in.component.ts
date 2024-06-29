@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-sign-in',
@@ -19,7 +20,7 @@ export class SignInComponent {
 
   onSubmit(){
     const payload = { email: this.email, password: this.password };
-    this.http.post('http://localhost:3000/sign-in', payload)
+    this.http.post(environment.apiUrl+'sign-in', payload)
       .subscribe((response:any)=>{
         this.cookieService.set("token",response.data.token);
         this.router.navigate(['/appointments']);

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-appointments',
@@ -29,7 +30,7 @@ export class AppointmentsComponent {
   }
 
   fetchData() {
-    this.http.get('http://localhost:3000/appointments?filterDate='+this.filterDate,{
+    this.http.get(environment.apiUrl+'appointments?filterDate='+this.filterDate,{
       headers: new HttpHeaders({'Authorization': 'Bearer '+ this.cookieService.get('token')}),
     })
     .subscribe((response) => {
@@ -43,7 +44,7 @@ export class AppointmentsComponent {
   }
 
   onAdd(){
-    this.http.post('http://localhost:3000/appointments',{
+    this.http.post(environment.apiUrl+'appointments',{
       title:this.title,
       date:this.formatDate(this.date),
       startTime:this.startTime,
@@ -59,7 +60,7 @@ export class AppointmentsComponent {
   }
 
   onDelete(id:string){
-    this.http.delete('http://localhost:3000/appointments/'+id,{
+    this.http.delete(environment.apiUrl+'appointments/'+id,{
       headers: new HttpHeaders({'Authorization': 'Bearer '+ this.cookieService.get('token')}),
     }).subscribe((response) => {
       console.log(response)
@@ -75,7 +76,7 @@ export class AppointmentsComponent {
   }
 
   onUpdate(){
-    this.http.patch('http://localhost:3000/appointments/'+this.editAppointment._id,this.editAppointment,{
+    this.http.patch(environment.apiUrl+'appointments/'+this.editAppointment._id,this.editAppointment,{
       headers: new HttpHeaders({'Authorization': 'Bearer '+ this.cookieService.get('token')}),
     }).subscribe((response) => {
       console.log(response)
