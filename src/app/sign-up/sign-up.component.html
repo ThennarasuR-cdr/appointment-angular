@@ -1,0 +1,23 @@
+<div>
+    <h1>Sign Up</h1>
+    <form (ngSubmit)="onSubmit()">
+        <div class="field">
+            <span>Name</span>
+            <input [(ngModel)]="name" name="name" required />
+        </div>
+        <div class="field">
+            <span>Email</span>
+            <input [(ngModel)]="email" name="email" type="email" required />
+        </div>
+        <div class="field">
+            <span>Password</span>
+            <input [(ngModel)]="password" name="password" type="password" required />
+        </div>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+        <div>
+            <a href="/sign-in">Log in to existing account</a>
+        </div>
+    </form>
+</div>

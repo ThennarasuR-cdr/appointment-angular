@@ -1,0 +1,56 @@
+<form (ngSubmit)="onAdd()">
+    <h3>Add Appointment</h3>
+    <span>Title</span>
+    <input [(ngModel)]="title" name="title"/>
+    <span>Date</span>
+    <input type="date" [(ngModel)]="date" name="date"/>
+    <span>Start Time</span>
+    <input type="time" [(ngModel)]="startTime" name="startTime"/>
+    <span>End Time</span>
+    <input type="time" [(ngModel)]="endTime" name="endTime"/>
+    <button type="submit">Add</button>
+</form>
+<h3>Your Appoinments</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Status</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let appointment of appointments">
+            <td>{{appointment.title}}</td>
+            <td>{{ appointment.date }}</td>
+            <td>{{ appointment.startTime }}</td>
+            <td>{{ appointment.endTime }}</td>
+            <td>{{ appointment.status }}</td>
+            <td><button (click)="onEdit(appointment)">Edit</button></td>
+            <td><button (click)="onDelete(appointment._id)">Delete</button></td>
+          </tr>
+    </tbody>
+</table>
+<div class="modal" *ngIf="modalOpen">
+    <form class="modal-form" (ngSubmit)="onUpdate()">
+        <h3>Edit Appointment</h3>
+        <span>Title</span>
+        <input [(ngModel)]="editAppointment.title" name="title"/>
+        <span>Date</span>
+        <input type="date" [(ngModel)]="editAppointment.date" name="date"/>
+        <span>Start Time</span>
+        <input type="time" [(ngModel)]="editAppointment.startTime" name="startTime"/>
+        <span>End Time</span>
+        <input type="time" [(ngModel)]="editAppointment.endTime" name="endTime"/>
+        <select [(ngModel)]="editAppointment.status" name="status">
+            <option *ngFor="let option of statusOptions" [value]="option" name="options">
+                {{ option }}
+            </option>
+          </select>
+        <button type="submit">Save</button>
+    </form>
+</div>
